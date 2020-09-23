@@ -3547,6 +3547,13 @@ public final class PropertyKey implements Comparable<PropertyKey> {
           .setConsistencyCheckLevel(ConsistencyCheckLevel.WARN)
           .setScope(Scope.CLIENT)
           .build();
+  public static final PropertyKey USER_CLIENT_CACHE_ASYNC_RESTORE_ENABLED =
+      new Builder(Name.USER_CLIENT_CACHE_ASYNC_RESTORE_ENABLED)
+          .setDefaultValue(true)
+          .setDescription("If this is enabled, cache restore state asynchronously.")
+          .setConsistencyCheckLevel(ConsistencyCheckLevel.IGNORE)
+          .setScope(Scope.CLIENT)
+          .build();
   public static final PropertyKey USER_CLIENT_CACHE_ASYNC_WRITE_ENABLED =
       new Builder(Name.USER_CLIENT_CACHE_ASYNC_WRITE_ENABLED)
           .setDefaultValue(true)
@@ -5252,6 +5259,8 @@ public final class PropertyKey implements Comparable<PropertyKey> {
         "alluxio.user.block.worker.client.read.retry";
     public static final String USER_BLOCK_WRITE_LOCATION_POLICY =
         "alluxio.user.block.write.location.policy.class";
+    public static final String USER_CLIENT_CACHE_ASYNC_RESTORE_ENABLED =
+        "alluxio.user.client.cache.async.restore.enabled";
     public static final String USER_CLIENT_CACHE_ASYNC_WRITE_ENABLED =
         "alluxio.user.client.cache.async.write.enabled";
     public static final String USER_CLIENT_CACHE_ASYNC_WRITE_THREADS =
@@ -5576,6 +5585,17 @@ public final class PropertyKey implements Comparable<PropertyKey> {
         "fs\\.azure\\.account\\.key\\.(\\w+)\\.blob\\.core\\.windows\\.net",
         PropertyCreators.fromBuilder(new Builder("fs.azure.account.key.%s.blob.core.windows.net")
             .setDisplayType(DisplayType.CREDENTIALS))),
+    UNDERFS_AZURE_CLIENT_ID(
+        "fs.adl.account.%s.oauth2.client.id",
+        "fs\\.adl\\.account\\.(\\w+)\\.oauth2\\.client\\.id"),
+    UNDERFS_AZURE_CLIENT_SECRET(
+        "fs.adl.account.%s.oauth2.credential",
+        "fs\\.adl\\.account\\.(\\w+)\\.oauth2\\.credential",
+        PropertyCreators.fromBuilder(new Builder("fs.adl.account.%s.oauth2.credential")
+                .setDisplayType(DisplayType.CREDENTIALS))),
+    UNDERFS_AZURE_REFRESH_URL(
+        "fs.adl.account.%s.oauth2.refresh.url",
+        "fs\\.adl\\.account\\.(\\w+)\\.oauth2\\.refresh\\.url"),
     // TODO(binfan): use alluxio.worker.tieredstore.levelX.mediatype instead
     WORKER_TIERED_STORE_LEVEL_ALIAS("alluxio.worker.tieredstore.level%d.alias",
         "alluxio\\.worker\\.tieredstore\\.level(\\d+)\\.alias"),
